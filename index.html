@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Encuesta de Estudio de Mercado: Cocina Económica</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .instructions {
+            background-color: #eafaf1;
+            padding: 15px;
+            border-left: 5px solid #2ecc71;
+            margin-bottom: 30px;
+        }
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            background-color: #fafafa;
+        }
+
+        legend {
+            font-weight: bold;
+            background: #2c3e50;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .btn-submit,
+        .btn-reset {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #219150;
+        }
+
+        .btn-reset {
+            background-color: #3498db;
+            margin-top: 20px;
+        }
+
+        .btn-reset:hover {
+            background-color: #2980b9;
+        }
+
+        #total-respuestas {
+            background-color: #eafaf1;
+            border-left: 5px solid #27ae60;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .grafica {
+            margin-top: 35px;
+            padding: 20px;
+            background-color: #fafafa;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .grafica canvas {
+            max-height: 400px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     ENCUESTA
+========================================== -->
+
+<div class="container" id="survey-section">
+
+    <div class="header">
+
+        <h1>Encuesta de Estudio de Mercado: Cocina Económica</h1>
+
+    </div>
+
+
+    <div class="instructions">
+
+        <strong>Objetivo:</strong>
+        Evaluar los hábitos de consumo, preferencias de menú,
+        modalidades de servicio y disposición de pago de la comunidad
+        (vecinos, trabajadores y estudiantes) en Felipe Carrillo Puerto,
+        con la finalidad de diseñar una oferta gastronómica accesible,
+        eficiente y adaptada a las necesidades locales tanto en comedor
+        físico como en servicio a domicilio.
+
+        <br><br>
+
+        <strong>Instrucciones:</strong>
+        Por favor, lea detenidamente cada pregunta y seleccione la opción
+        que mejor represente su respuesta. Sus respuestas son completamente
+        anónimas y serán utilizadas exclusivamente con fines de estudio de
+        mercado. ¡Agradecemos mucho su tiempo y colaboración!
+
+    </div>
+
+
+    <form id="survey-form">
+
+
+        <!-- ==========================================
+             BLOQUE 1
+        ========================================== -->
+
+        <fieldset>
+
+            <legend>Bloque 1: Perfil Demográfico y Mercado Meta</legend>
+
+
+            <div class="question"
+                 data-id="q1"
+                 data-title="1. ¿Cuál es su rango de edad?">
+
+                <p>1. ¿Cuál es su rango de edad?</p>
+
+                <label>
+                    <input type="radio" name="q1"
+                           value="Menos de 18 años" required>
+                    Menos de 18 años
+                </label>
+
+                <label>
+                    <input type="radio" name="q1"
+                           value="18 a 25 años">
+                    18 a 25 años
+                </label>
+
+                <label>
+                    <input type="radio" name="q1"
+                           value="26 a 35 años">
+                    26 a 35 años
+                </label>
+
+                <label>
+                    <input type="radio" name="q1"
+                           value="36 a 50 años">
+                    36 a 50 años
+                </label>
+
+                <label>
+                    <input type="radio" name="q1"
+                           value="Más de 50 años">
+                    Más de 50 años
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q2"
+                 data-title="2. ¿Cuál es su ocupación principal?">
+
+                <p>2. ¿Cuál es su ocupación principal?</p>
+
+                <label>
+                    <input type="radio" name="q2"
+                           value="Estudiante" required>
+                    Estudiante
+                </label>
+
+                <label>
+                    <input type="radio" name="q2"
+                           value="Empleado(a) / Oficinista">
+                    Empleado(a) / Oficinista
+                </label>
+
+                <label>
+                    <input type="radio" name="q2"
+                           value="Trabajador(a) independiente / Negocio propio">
+                    Trabajador(a) independiente / Negocio propio
+                </label>
+
+                <label>
+                    <input type="radio" name="q2"
+                           value="Labores del hogar / Vecino(a) de la zona">
+                    Labores del hogar / Vecino(a) de la zona
+                </label>
+
+                <label>
+                    <input type="radio" name="q2"
+                           value="Otro">
+                    Otro
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q3"
+                 data-title="3. ¿En qué colonia o zona de Felipe Carrillo Puerto vive o trabaja habitualmente?">
+
+                <p>
+                    3. ¿En qué colonia o zona de Felipe Carrillo Puerto
+                    vive o trabaja habitualmente?
+                </p>
+
+                <label>
+                    <input type="radio" name="q3"
+                           value="Centro" required>
+                    Centro
+                </label>
+
+                <label>
+                    <input type="radio" name="q3"
+                           value="Cecilio Chi">
+                    Cecilio Chi
+                </label>
+
+                <label>
+                    <input type="radio" name="q3"
+                           value="Lázaro Cárdenas">
+                    Lázaro Cárdenas
+                </label>
+
+                <label>
+                    <input type="radio" name="q3"
+                           value="Emiliano Zapata">
+                    Emiliano Zapata
+                </label>
+
+                <label>
+                    <input type="radio" name="q3"
+                           value="Leona Vicario">
+                    Leona Vicario
+                </label>
+
+                <label>
+                    <input type="radio" name="q3"
+                           value="Francisco May">
+                    Francisco May
+                </label>
+
+                <label>
+                    <input type="radio" name="q3"
+                           value="Javier Rojo Gómez">
+                    Javier Rojo Gómez
+                </label>
+
+                <label>
+                    <input type="radio" name="q3"
+                           value="Rafael E. Melgar">
+                    Rafael E. Melgar
+                </label>
+
+                <label>
+                    <input type="radio" name="q3"
+                           value="Plan de Ayala">
+                    Plan de Ayala
+                </label>
+
+                <label>
+                    <input type="radio" name="q3"
+                           value="Constituyentes">
+                    Constituyentes
+                </label>
+
+            </div>
+
+        </fieldset>
+
+
+        <!-- ==========================================
+             BLOQUE 2
+        ========================================== -->
+
+        <fieldset>
+
+            <legend>Bloque 2: Hábitos de Consumo y Factores de elección</legend>
+
+
+            <div class="question"
+                 data-id="q4"
+                 data-title="4. ¿Dónde acostumbra realizar su comida principal entre semana?">
+
+                <p>
+                    4. ¿Dónde acostumbra realizar su comida principal
+                    entre semana?
+                </p>
+
+                <label>
+                    <input type="radio" name="q4"
+                           value="En casa" required>
+                    En casa (cocinado por usted o su familia)
+                </label>
+
+                <label>
+                    <input type="radio" name="q4"
+                           value="Cocina económica">
+                    En una cocina económica o comedor local
+                </label>
+
+                <label>
+                    <input type="radio" name="q4"
+                           value="Comida corrida / Tupper">
+                    Comida corrida o tupper en el trabajo / escuela
+                </label>
+
+                <label>
+                    <input type="radio" name="q4"
+                           value="Comida rápida / Restaurantes">
+                    Comida rápida o restaurantes
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q5"
+                 data-title="5. ¿Con qué frecuencia consume alimentos en cocinas económicas?">
+
+                <p>
+                    5. ¿Con qué frecuencia consume alimentos en cocinas
+                    económicas o de comida casera?
+                </p>
+
+                <label>
+                    <input type="radio" name="q5"
+                           value="Diario" required>
+                    Diario (de lunes a viernes)
+                </label>
+
+                <label>
+                    <input type="radio" name="q5"
+                           value="3 a 4 veces por semana">
+                    3 a 4 veces por semana
+                </label>
+
+                <label>
+                    <input type="radio" name="q5"
+                           value="1 a 2 veces por semana">
+                    1 a 2 veces por semana
+                </label>
+
+                <label>
+                    <input type="radio" name="q5"
+                           value="Rara vez o nunca">
+                    Rara vez o nunca
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q6"
+                 data-title="6. ¿En qué horario acostumbra realizar su comida principal?">
+
+                <p>
+                    6. ¿En qué horario acostumbra realizar su comida principal?
+                </p>
+
+                <label>
+                    <input type="radio" name="q6"
+                           value="12:00 pm a 1:30 pm" required>
+                    12:00 p.m. a 1:30 p.m.
+                </label>
+
+                <label>
+                    <input type="radio" name="q6"
+                           value="1:30 pm a 3:00 pm">
+                    1:30 p.m. a 3:00 p.m.
+                </label>
+
+                <label>
+                    <input type="radio" name="q6"
+                           value="3:00 pm a 4:30 pm">
+                    3:00 p.m. a 4:30 p.m.
+                </label>
+
+                <label>
+                    <input type="radio" name="q6"
+                           value="Después de las 4:30 pm">
+                    Después de las 4:30 p.m.
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q7"
+                 data-title="7. Motivo principal por el que compra comida en un establecimiento">
+
+                <p>
+                    7. ¿Cuál es el motivo principal por el que compra
+                    comida en un establecimiento?
+                </p>
+
+                <label>
+                    <input type="radio" name="q7"
+                           value="Falta de tiempo" required>
+                    Falta de tiempo para cocinar
+                </label>
+
+                <label>
+                    <input type="radio" name="q7"
+                           value="Lejanía de casa">
+                    Mi trabajo o escuela queda lejos de casa
+                </label>
+
+                <label>
+                    <input type="radio" name="q7"
+                           value="Comodidad">
+                    Comodidad / Evitar cocinar y lavar trastes
+                </label>
+
+                <label>
+                    <input type="radio" name="q7"
+                           value="Sabor">
+                    Por sabor y sazón casero
+                </label>
+
+                <label>
+                    <input type="radio" name="q7"
+                           value="No sé cocinar">
+                    No sé cocinar
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q8"
+                 data-title="8. Factor que valora más (Máx. 2)">
+
+                <p>
+                    8. ¿Qué factor valora más al elegir una cocina económica?
+                    (Seleccione máximo 2)
+                </p>
+
+                <label>
+                    <input type="checkbox" name="q8"
+                           value="Sabor y sazón"
+                           class="q8-cb">
+                    Sabor tradicional y sazón casero
+                </label>
+
+                <label>
+                    <input type="checkbox" name="q8"
+                           value="Porciones abundantes"
+                           class="q8-cb">
+                    Porciones abundantes y bien servidas
+                </label>
+
+                <label>
+                    <input type="checkbox" name="q8"
+                           value="Precios accesibles"
+                           class="q8-cb">
+                    Precios accesibles y económicos
+                </label>
+
+                <label>
+                    <input type="checkbox" name="q8"
+                           value="Higiene"
+                           class="q8-cb">
+                    Higiene y limpieza en la preparación
+                </label>
+
+                <label>
+                    <input type="checkbox" name="q8"
+                           value="Rapidez en entrega"
+                           class="q8-cb">
+                    Rapidez y puntualidad en la entrega a domicilio
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q9"
+                 data-title="9. ¿Qué presentación de comida casera le resulta más atractiva?">
+
+                <p>
+                    9. ¿Qué presentación de comida casera le resulta
+                    más atractiva para su día a día?
+                </p>
+
+                <label>
+                    <input type="radio" name="q9"
+                           value="Comida corrida completa" required>
+                    Comida corrida completa
+                    (sopa/arroz + plato fuerte + guarnición)
+                </label>
+
+                <label>
+                    <input type="radio" name="q9"
+                           value="Paquete Ejecutivo">
+                    Paquete Ejecutivo
+                    (comida completa + bebida + postre)
+                </label>
+
+                <label>
+                    <input type="radio" name="q9"
+                           value="Solo plato fuerte con guarnición">
+                    Solo plato fuerte con guarnición
+                </label>
+
+                <label>
+                    <input type="radio" name="q9"
+                           value="Opciones saludables">
+                    Opciones saludables o guarniciones al vapor / ligeras
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q10"
+                 data-title="10. Interés en plan de suscripción">
+
+                <p>
+                    10. ¿Estaría interesado(a) en un plan de suscripción
+                    o pedidos anticipados de comida para toda la semana?
+                </p>
+
+                <label>
+                    <input type="radio" name="q10"
+                           value="Sí" required>
+                    Sí, facilitaría organizar mis comidas y horarios
+                </label>
+
+                <label>
+                    <input type="radio" name="q10"
+                           value="Tal vez">
+                    Tal vez, dependiendo de los descuentos y variedad del menú
+                </label>
+
+                <label>
+                    <input type="radio" name="q10"
+                           value="No">
+                    No, prefiero decidir y pedir al día
+                </label>
+
+            </div>
+
+        </fieldset>
+
+
+        <!-- ==========================================
+             BLOQUE 3
+        ========================================== -->
+
+        <fieldset>
+
+            <legend>Bloque 3: Modalidad del Servicio y Local Físico</legend>
+
+
+            <div class="question"
+                 data-id="q11"
+                 data-title="11. ¿Qué modalidad utiliza con mayor frecuencia?">
+
+                <p>
+                    11. Al pedir comida en un establecimiento,
+                    ¿qué modalidad utiliza con mayor frecuencia?
+                </p>
+
+                <label>
+                    <input type="radio" name="q11"
+                           value="A domicilio" required>
+                    A domicilio (entrega directa en mi casa o trabajo)
+                </label>
+
+                <label>
+                    <input type="radio" name="q11"
+                           value="Recoger al local">
+                    Recoger al local (para llevar)
+                </label>
+
+                <label>
+                    <input type="radio" name="q11"
+                           value="Comer en el establecimiento">
+                    Comer en el establecimiento
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q12"
+                 data-title="12. ¿Visitaría el establecimiento para comer ahí mismo?">
+
+                <p>
+                    12. Tomando en cuenta que el local se ubica en una
+                    zona lejana del centro, ¿visitaría el establecimiento
+                    para comer ahí mismo?
+                </p>
+
+                <label>
+                    <input type="radio" name="q12"
+                           value="Sí, varias veces" required>
+                    Sí, varias veces a la semana
+                </label>
+
+                <label>
+                    <input type="radio" name="q12"
+                           value="Ocasionalmente">
+                    Ocasionalmente (1 a 2 veces por quincena)
+                </label>
+
+                <label>
+                    <input type="radio" name="q12"
+                           value="Casi nunca">
+                    Casi nunca, prefiero casi en su totalidad
+                    el servicio a domicilio
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q13"
+                 data-title="13. Tiempo máximo aceptable de espera a domicilio">
+
+                <p>
+                    13. ¿Cuánto es el tiempo máximo que considera
+                    aceptable esperar por un pedido a domicilio?
+                </p>
+
+                <label>
+                    <input type="radio" name="q13"
+                           value="Menos de 20 min" required>
+                    Menos de 20 minutos
+                </label>
+
+                <label>
+                    <input type="radio" name="q13"
+                           value="De 20 a 30 min">
+                    De 20 a 30 minutos (tiempo meta del negocio)
+                </label>
+
+                <label>
+                    <input type="radio" name="q13"
+                           value="De 30 a 40 min">
+                    De 30 a 40 minutos
+                </label>
+
+                <label>
+                    <input type="radio" name="q13"
+                           value="Más de 40 min">
+                    Más de 40 minutos
+                </label>
+
+            </div>
+
+        </fieldset>
+
+
+        <!-- ==========================================
+             BLOQUE 4
+        ========================================== -->
+
+        <fieldset>
+
+            <legend>Bloque 4: Canales y Empaque Sustentable</legend>
+
+
+            <div class="question"
+                 data-id="q14"
+                 data-title="14. Canal preferido para menú y pedidos">
+
+                <p>
+                    14. ¿Por cuál canal preferiría consultar el menú
+                    diario y hacer sus pedidos?
+                </p>
+
+                <label>
+                    <input type="radio" name="q14"
+                           value="WhatsApp" required>
+                    Mensaje directo por WhatsApp
+                </label>
+
+                <label>
+                    <input type="radio" name="q14"
+                           value="Facebook">
+                    Página de Facebook / Publicaciones en grupos
+                    de la colonia
+                </label>
+
+                <label>
+                    <input type="radio" name="q14"
+                           value="Llamada">
+                    Llamada telefónica directa
+                </label>
+
+                <label>
+                    <input type="radio" name="q14"
+                           value="En persona">
+                    En persona directamente en el local
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q15"
+                 data-title="15. Menú del día por WhatsApp">
+
+                <p>
+                    15. ¿Le gustaría recibir el menú del día por WhatsApp
+                    todas las mañanas para realizar pedidos anticipados?
+                </p>
+
+                <label>
+                    <input type="radio" name="q15"
+                           value="Sí" required>
+                    Sí, me ayuda a programar mi pedido con tiempo
+                </label>
+
+                <label>
+                    <input type="radio" name="q15"
+                           value="Solo cuando lo solicite">
+                    Solo cuando yo lo solicite
+                </label>
+
+                <label>
+                    <input type="radio" name="q15"
+                           value="No">
+                    No, no me gusta recibir mensajes diarios
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q16"
+                 data-title="16. Opinión sobre empaques biodegradables">
+
+                <p>
+                    16. ¿Qué opina sobre el uso de empaques biodegradables
+                    y prácticas ecológicas en el servicio a domicilio?
+                </p>
+
+                <label>
+                    <input type="radio" name="q16"
+                           value="Muy positivo" required>
+                    Muy positivo; prefiero comprar en negocios
+                    comprometidos con el medio ambiente
+                </label>
+
+                <label>
+                    <input type="radio" name="q16"
+                           value="Me agrada si funciona bien">
+                    Me agrada, siempre que el empaque conserve bien
+                    la temperatura y los alimentos
+                </label>
+
+                <label>
+                    <input type="radio" name="q16"
+                           value="Indiferente">
+                    Me es indiferente, solo me importa la comida y el precio
+                </label>
+
+            </div>
+
+        </fieldset>
+
+
+        <!-- ==========================================
+             BLOQUE 5
+        ========================================== -->
+
+        <fieldset>
+
+            <legend>Bloque 5: Disposición de Pago y Método de Cobro</legend>
+
+
+            <div class="question"
+                 data-id="q17"
+                 data-title="17. ¿Cuánto suele/considera justo pagar por una comida completa?">
+
+                <p>
+                    17. ¿Cuánto suele pagar (o consideraría justo pagar)
+                    por una comida casera completa bien servida?
+                </p>
+
+                <label>
+                    <input type="radio" name="q17"
+                           value="Menos de $100 MXN" required>
+                    Menos de $100 MXN
+                </label>
+
+                <label>
+                    <input type="radio" name="q17"
+                           value="De $100 a $120 MXN">
+                    De $100 a $120 MXN
+                </label>
+
+                <label>
+                    <input type="radio" name="q17"
+                           value="De $121 a $140 MXN">
+                    De $121 a $140 MXN
+                </label>
+
+                <label>
+                    <input type="radio" name="q17"
+                           value="Más de $140 MXN">
+                    Más de $140 MXN
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q18"
+                 data-title="18. Disposición a pagar cuota de envío">
+
+                <p>
+                    18. ¿Estaría dispuesto(a) a pagar una cuota mínima
+                    de envío si se garantiza la entrega en menos de 30 minutos?
+                </p>
+
+                <label>
+                    <input type="radio" name="q18"
+                           value="Sí, $10-$15" required>
+                    Sí, de $10 a $15 MXN adicionales
+                </label>
+
+                <label>
+                    <input type="radio" name="q18"
+                           value="Sí, $16-$25">
+                    Sí, de $16 a $25 MXN adicionales
+                </label>
+
+                <label>
+                    <input type="radio" name="q18"
+                           value="Solo en múltiples paquetes">
+                    Solo si mi pedido incluye más de un paquete
+                </label>
+
+                <label>
+                    <input type="radio" name="q18"
+                           value="No">
+                    No, prefiero entrega gratuita o pasar a recoger
+                </label>
+
+            </div>
+
+
+            <div class="question"
+                 data-id="q19"
+                 data-title="19. Método de pago preferido">
+
+                <p>
+                    19. ¿Cuál es su método de pago preferido al comprar
+                    comida (a domicilio o en local)?
+                </p>
+
+                <label>
+                    <input type="radio" name="q19"
+                           value="Efectivo" required>
+                    Efectivo contra entrega
+                </label>
+
+                <label>
+                    <input type="radio" name="q19"
+                           value="Transferencia">
+                    Transferencia bancaria (SPEI / CoDi)
+                </label>
+
+                <label>
+                    <input type="radio" name="q19"
+                           value="Tarjeta">
+                    Pago con tarjeta de débito/crédito (terminal física)
+                </label>
+
+                <label>
+                    <input type="radio" name="q19"
+                           value="Enlace digital / QR">
+                    Enlace digital de pago / QR
+                </label>
+
+            </div>
+
+        </fieldset>
+
+
+        <button type="submit" class="btn-submit">
+            Enviar Respuestas
+        </button>
+
+    </form>
+
+</div>
+
+
+<!-- ==========================================
+     RESULTADOS
+========================================== -->
+
+<div class="container" id="resultados">
+
+    <div class="header">
+
+        <h2>Resultados de la Encuesta</h2>
+
+        <p>
+            Estadísticas obtenidas de las respuestas registradas.
+        </p>
+
+    </div>
+
+
+    <div id="total-respuestas">
+        Total de respuestas: 0
+    </div>
+
+
+    <div class="grafica">
+
+        <h3>1. Rango de edad</h3>
+
+        <canvas id="graficaEdad"></canvas>
+
+    </div>
+
+
+    <div class="grafica">
+
+        <h3>2. Ocupación</h3>
+
+        <canvas id="graficaOcupacion"></canvas>
+
+    </div>
+
+
+    <div class="grafica">
+
+        <h3>3. Frecuencia de consumo</h3>
+
+        <canvas id="graficaFrecuencia"></canvas>
+
+    </div>
+
+
+    <div class="grafica">
+
+        <h3>4. Precio dispuesto a pagar</h3>
+
+        <canvas id="graficaPrecio"></canvas>
+
+    </div>
+
+
+    <div class="grafica">
+
+        <h3>5. Modalidad de servicio</h3>
+
+        <canvas id="graficaModalidad"></canvas>
+
+    </div>
+
+
+    <div class="grafica">
+
+        <h3>6. Método de pago</h3>
+
+        <canvas id="graficaPago"></canvas>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     JAVASCRIPT + FIREBASE
+========================================== -->
+
+<script type="module">
+
+
+    // ==========================================
+    // CONEXIÓN CON FIREBASE
+    // ==========================================
+
+    import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+
+    import {
+        getFirestore,
+        collection,
+        addDoc,
+        getDocs
+    } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+
+    // ==========================================
+    // CONFIGURACIÓN DE FIREBASE
+    // ==========================================
+
+    const firebaseConfig = {
+
+        apiKey: "AIzaSyByFd9XxZCEDxRtPkcK5D-R2bBPBJ_QzFI",
+
+        authDomain:
+            "encuesta-cocina-economica.firebaseapp.com",
+
+        projectId:
+            "encuesta-cocina-economica",
+
+        storageBucket:
+            "encuesta-cocina-economica.firebasestorage.app",
+
+        messagingSenderId:
+            "79485744933",
+
+        appId:
+            "1:79485744933:web:734007b926d65ed2d64ccc",
+
+        measurementId:
+            "G-VVR90J5WEG"
+
+    };
+
+
+    // ==========================================
+    // INICIALIZAR FIREBASE
+    // ==========================================
+
+    const app = initializeApp(firebaseConfig);
+
+
+    // ==========================================
+    // INICIALIZAR FIRESTORE
+    // ==========================================
+
+    const db = getFirestore(app);
+
+
+    console.log("Firebase conectado correctamente");
+
+
+    // ==========================================
+    // PREGUNTA 8 - MÁXIMO 2 OPCIONES
+    // ==========================================
+
+    const checkboxesQ8 =
+        document.querySelectorAll(".q8-cb");
+
+
+    checkboxesQ8.forEach(cb => {
+
+        cb.addEventListener("change", function () {
+
+            const checkedBoxes =
+                document.querySelectorAll(".q8-cb:checked");
+
+
+            if (checkedBoxes.length > 2) {
+
+                this.checked = false;
+
+                alert(
+                    "Solo puedes seleccionar un máximo de 2 opciones en la pregunta 8."
+                );
+
+            }
+
+        });
+
+    });
+
+
+    // ==========================================
+    // ENVIAR ENCUESTA
+    // ==========================================
+
+    document
+        .getElementById("survey-form")
+        .addEventListener("submit", async function (e) {
+
+            e.preventDefault();
+
+
+            // ==========================================
+            // VALIDAR PREGUNTA 8
+            // ==========================================
+
+            const q8Checked =
+                document.querySelectorAll(".q8-cb:checked");
+
+
+            if (q8Checked.length === 0) {
+
+                alert(
+                    "Por favor selecciona al menos una opción en la pregunta 8."
+                );
+
+                return;
+
+            }
+
+
+            // ==========================================
+            // OBTENER DATOS DEL FORMULARIO
+            // ==========================================
+
+            const formData = new FormData(this);
+
+            let currentAnswers = {};
+
+
+            // ==========================================
+            // RECORRER TODAS LAS PREGUNTAS
+            // ==========================================
+
+            const questionsDivs =
+                document.querySelectorAll(".question");
+
+
+            questionsDivs.forEach(div => {
+
+                const qId =
+                    div.getAttribute("data-id");
+
+                const qTitle =
+                    div.getAttribute("data-title");
+
+
+                // ==========================================
+                // PREGUNTA 8
+                // ==========================================
+
+                if (qId === "q8") {
+
+                    let selected = [];
+
+
+                    document
+                        .querySelectorAll(".q8-cb:checked")
+                        .forEach(cb => {
+
+                            selected.push(cb.value);
+
+                        });
+
+
+                    currentAnswers[qId] = {
+
+                        title: qTitle,
+
+                        answers: selected
+
+                    };
+
+                }
+
+
+                // ==========================================
+                // PREGUNTAS NORMALES
+                // ==========================================
+
+                else {
+
+                    currentAnswers[qId] = {
+
+                        title: qTitle,
+
+                        answers: [formData.get(qId)]
+
+                    };
+
+                }
+
+            });
+
+
+            // ==========================================
+            // GUARDAR EN FIRESTORE
+            // ==========================================
+
+            try {
+
+                await addDoc(
+
+                    collection(db, "encuestas"),
+
+                    {
+
+                        ...currentAnswers,
+
+                        fecha: new Date()
+
+                    }
+
+                );
+
+
+                console.log(
+                    "Encuesta guardada correctamente"
+                );
+
+
+                alert(
+                    "¡Gracias! Tu encuesta fue registrada correctamente."
+                );
+
+
+                // ==========================================
+                // LIMPIAR FORMULARIO
+                // ==========================================
+
+                document
+                    .getElementById("survey-form")
+                    .reset();
+
+
+                window.scrollTo(0, 0);
+
+
+                // Actualizar resultados después de guardar
+
+                cargarResultados();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error al guardar la encuesta:",
+                    error
+                );
+
+
+                alert(
+                    "Ocurrió un error al guardar la encuesta. Revisa la consola."
+                );
+
+            }
+
+        });
+
+
+    // ==========================================
+    // CARGAR RESULTADOS DE FIRESTORE
+    // ==========================================
+
+    async function cargarResultados() {
+
+        try {
+
+            const consulta = await getDocs(
+                collection(db, "encuestas")
+            );
+
+
+            let respuestas = [];
+
+
+            consulta.forEach((doc) => {
+
+                respuestas.push(doc.data());
+
+            });
+
+
+            // ==========================================
+            // TOTAL DE RESPUESTAS
+            // ==========================================
+
+            document.getElementById(
+                "total-respuestas"
+            ).textContent =
+                "Total de respuestas: " + respuestas.length;
+
+
+            // ==========================================
+            // CONTAR RESPUESTAS
+            // ==========================================
+
+            function contar(pregunta) {
+
+                let conteo = {};
+
+
+                respuestas.forEach(respuesta => {
+
+                    if (
+                        respuesta[pregunta] &&
+                        respuesta[pregunta].answers
+                    ) {
+
+                        respuesta[pregunta].answers.forEach(valor => {
+
+                            if (valor) {
+
+                                conteo[valor] =
+                                    (conteo[valor] || 0) + 1;
+
+                            }
+
+                        });
+
+                    }
+
+                });
+
+
+                return conteo;
+
+            }
+
+
+            // ==========================================
+            // CREAR GRÁFICA
+            // ==========================================
+
+            function crearGrafica(id, datos) {
+
+                const canvas =
+                    document.getElementById(id);
+
+
+                // Si ya existe una gráfica,
+                // destruirla antes de crear otra
+
+                const graficaExistente =
+                    Chart.getChart(canvas);
+
+
+                if (graficaExistente) {
+
+                    graficaExistente.destroy();
+
+                }
+
+
+                new Chart(
+
+                    canvas,
+
+                    {
+
+                        type: "bar",
+
+                        data: {
+
+                            labels: Object.keys(datos),
+
+                            datasets: [{
+
+                                label:
+                                    "Número de respuestas",
+
+                                data:
+                                    Object.values(datos)
+
+                            }]
+
+                        },
+
+                        options: {
+
+                            responsive: true,
+
+                            scales: {
+
+                                y: {
+
+                                    beginAtZero: true,
+
+                                    ticks: {
+
+                                        stepSize: 1
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                );
+
+            }
+
+
+            // ==========================================
+            // GENERAR GRÁFICAS
+            // ==========================================
+
+
+            // Pregunta 1
+
+            crearGrafica(
+                "graficaEdad",
+                contar("q1")
+            );
+
+
+            // Pregunta 2
+
+            crearGrafica(
+                "graficaOcupacion",
+                contar("q2")
+            );
+
+
+            // Pregunta 5
+
+            crearGrafica(
+                "graficaFrecuencia",
+                contar("q5")
+            );
+
+
+            // Pregunta 17
+
+            crearGrafica(
+                "graficaPrecio",
+                contar("q17")
+            );
+
+
+            // Pregunta 11
+
+            crearGrafica(
+                "graficaModalidad",
+                contar("q11")
+            );
+
+
+            // Pregunta 19
+
+            crearGrafica(
+                "graficaPago",
+                contar("q19")
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Error al cargar resultados:",
+                error
+            );
+
+        }
+
+    }
+
+
+    // ==========================================
+    // CARGAR RESULTADOS AL ABRIR LA PÁGINA
+    // ==========================================
+
+    cargarResultados();
+
+
+</script>
+
+
+</body>
+
+</html>
