@@ -8,9 +8,6 @@
 
     <title>Encuesta de Estudio de Mercado: Cocina Económica</title>
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <style>
 
         body {
@@ -85,8 +82,7 @@
             margin-right: 10px;
         }
 
-        .btn-submit,
-        .btn-reset {
+        .btn-submit {
             display: block;
             width: 100%;
             padding: 15px;
@@ -103,43 +99,12 @@
             background-color: #219150;
         }
 
-        .btn-reset {
-            background-color: #3498db;
-            margin-top: 20px;
-        }
-
-        .btn-reset:hover {
-            background-color: #2980b9;
-        }
-
-        #total-respuestas {
-            background-color: #eafaf1;
-            border-left: 5px solid #27ae60;
-            padding: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
-
-        .grafica {
-            margin-top: 35px;
-            padding: 20px;
-            background-color: #fafafa;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-        }
-
-        .grafica canvas {
-            max-height: 400px;
-        }
-
     </style>
 
 </head>
 
 
 <body>
-
 
 <!-- ==========================================
      ENCUESTA
@@ -157,6 +122,7 @@
     <div class="instructions">
 
         <strong>Objetivo:</strong>
+
         Evaluar los hábitos de consumo, preferencias de menú,
         modalidades de servicio y disposición de pago de la comunidad
         (vecinos, trabajadores y estudiantes) en Felipe Carrillo Puerto,
@@ -167,6 +133,7 @@
         <br><br>
 
         <strong>Instrucciones:</strong>
+
         Por favor, lea detenidamente cada pregunta y seleccione la opción
         que mejor represente su respuesta. Sus respuestas son completamente
         anónimas y serán utilizadas exclusivamente con fines de estudio de
@@ -962,89 +929,10 @@
 
 
 <!-- ==========================================
-     RESULTADOS
-========================================== -->
-
-<div class="container" id="resultados">
-
-    <div class="header">
-
-        <h2>Resultados de la Encuesta</h2>
-
-        <p>
-            Estadísticas obtenidas de las respuestas registradas.
-        </p>
-
-    </div>
-
-
-    <div id="total-respuestas">
-        Total de respuestas: 0
-    </div>
-
-
-    <div class="grafica">
-
-        <h3>1. Rango de edad</h3>
-
-        <canvas id="graficaEdad"></canvas>
-
-    </div>
-
-
-    <div class="grafica">
-
-        <h3>2. Ocupación</h3>
-
-        <canvas id="graficaOcupacion"></canvas>
-
-    </div>
-
-
-    <div class="grafica">
-
-        <h3>3. Frecuencia de consumo</h3>
-
-        <canvas id="graficaFrecuencia"></canvas>
-
-    </div>
-
-
-    <div class="grafica">
-
-        <h3>4. Precio dispuesto a pagar</h3>
-
-        <canvas id="graficaPrecio"></canvas>
-
-    </div>
-
-
-    <div class="grafica">
-
-        <h3>5. Modalidad de servicio</h3>
-
-        <canvas id="graficaModalidad"></canvas>
-
-    </div>
-
-
-    <div class="grafica">
-
-        <h3>6. Método de pago</h3>
-
-        <canvas id="graficaPago"></canvas>
-
-    </div>
-
-</div>
-
-
-<!-- ==========================================
      JAVASCRIPT + FIREBASE
 ========================================== -->
 
 <script type="module">
-
 
     // ==========================================
     // CONEXIÓN CON FIREBASE
@@ -1056,8 +944,7 @@
     import {
         getFirestore,
         collection,
-        addDoc,
-        getDocs
+        addDoc
     } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
 
@@ -1086,7 +973,6 @@
 
         measurementId:
             "G-VVR90J5WEG"
-
     };
 
 
@@ -1103,7 +989,6 @@
 
     const db = getFirestore(app);
 
-
     console.log("Firebase conectado correctamente");
 
 
@@ -1114,14 +999,12 @@
     const checkboxesQ8 =
         document.querySelectorAll(".q8-cb");
 
-
     checkboxesQ8.forEach(cb => {
 
         cb.addEventListener("change", function () {
 
             const checkedBoxes =
                 document.querySelectorAll(".q8-cb:checked");
-
 
             if (checkedBoxes.length > 2) {
 
@@ -1130,9 +1013,7 @@
                 alert(
                     "Solo puedes seleccionar un máximo de 2 opciones en la pregunta 8."
                 );
-
             }
-
         });
 
     });
@@ -1156,7 +1037,6 @@
             const q8Checked =
                 document.querySelectorAll(".q8-cb:checked");
 
-
             if (q8Checked.length === 0) {
 
                 alert(
@@ -1164,7 +1044,6 @@
                 );
 
                 return;
-
             }
 
 
@@ -1202,7 +1081,6 @@
 
                     let selected = [];
 
-
                     document
                         .querySelectorAll(".q8-cb:checked")
                         .forEach(cb => {
@@ -1217,9 +1095,7 @@
                         title: qTitle,
 
                         answers: selected
-
                     };
-
                 }
 
 
@@ -1234,9 +1110,7 @@
                         title: qTitle,
 
                         answers: [formData.get(qId)]
-
                     };
-
                 }
 
             });
@@ -1253,11 +1127,8 @@
                     collection(db, "encuestas"),
 
                     {
-
                         ...currentAnswers,
-
                         fecha: new Date()
-
                     }
 
                 );
@@ -1281,13 +1152,7 @@
                     .getElementById("survey-form")
                     .reset();
 
-
                 window.scrollTo(0, 0);
-
-
-                // Actualizar resultados después de guardar
-
-                cargarResultados();
 
 
             } catch (error) {
@@ -1297,7 +1162,6 @@
                     error
                 );
 
-
                 alert(
                     "Ocurrió un error al guardar la encuesta. Revisa la consola."
                 );
@@ -1305,226 +1169,6 @@
             }
 
         });
-
-
-    // ==========================================
-    // CARGAR RESULTADOS DE FIRESTORE
-    // ==========================================
-
-    async function cargarResultados() {
-
-        try {
-
-            const consulta = await getDocs(
-                collection(db, "encuestas")
-            );
-
-
-            let respuestas = [];
-
-
-            consulta.forEach((doc) => {
-
-                respuestas.push(doc.data());
-
-            });
-
-
-            // ==========================================
-            // TOTAL DE RESPUESTAS
-            // ==========================================
-
-            document.getElementById(
-                "total-respuestas"
-            ).textContent =
-                "Total de respuestas: " + respuestas.length;
-
-
-            // ==========================================
-            // CONTAR RESPUESTAS
-            // ==========================================
-
-            function contar(pregunta) {
-
-                let conteo = {};
-
-
-                respuestas.forEach(respuesta => {
-
-                    if (
-                        respuesta[pregunta] &&
-                        respuesta[pregunta].answers
-                    ) {
-
-                        respuesta[pregunta].answers.forEach(valor => {
-
-                            if (valor) {
-
-                                conteo[valor] =
-                                    (conteo[valor] || 0) + 1;
-
-                            }
-
-                        });
-
-                    }
-
-                });
-
-
-                return conteo;
-
-            }
-
-
-            // ==========================================
-            // CREAR GRÁFICA
-            // ==========================================
-
-            function crearGrafica(id, datos) {
-
-                const canvas =
-                    document.getElementById(id);
-
-
-                // Si ya existe una gráfica,
-                // destruirla antes de crear otra
-
-                const graficaExistente =
-                    Chart.getChart(canvas);
-
-
-                if (graficaExistente) {
-
-                    graficaExistente.destroy();
-
-                }
-
-
-                new Chart(
-
-                    canvas,
-
-                    {
-
-                        type: "bar",
-
-                        data: {
-
-                            labels: Object.keys(datos),
-
-                            datasets: [{
-
-                                label:
-                                    "Número de respuestas",
-
-                                data:
-                                    Object.values(datos)
-
-                            }]
-
-                        },
-
-                        options: {
-
-                            responsive: true,
-
-                            scales: {
-
-                                y: {
-
-                                    beginAtZero: true,
-
-                                    ticks: {
-
-                                        stepSize: 1
-
-                                    }
-
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                );
-
-            }
-
-
-            // ==========================================
-            // GENERAR GRÁFICAS
-            // ==========================================
-
-
-            // Pregunta 1
-
-            crearGrafica(
-                "graficaEdad",
-                contar("q1")
-            );
-
-
-            // Pregunta 2
-
-            crearGrafica(
-                "graficaOcupacion",
-                contar("q2")
-            );
-
-
-            // Pregunta 5
-
-            crearGrafica(
-                "graficaFrecuencia",
-                contar("q5")
-            );
-
-
-            // Pregunta 17
-
-            crearGrafica(
-                "graficaPrecio",
-                contar("q17")
-            );
-
-
-            // Pregunta 11
-
-            crearGrafica(
-                "graficaModalidad",
-                contar("q11")
-            );
-
-
-            // Pregunta 19
-
-            crearGrafica(
-                "graficaPago",
-                contar("q19")
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Error al cargar resultados:",
-                error
-            );
-
-        }
-
-    }
-
-
-    // ==========================================
-    // CARGAR RESULTADOS AL ABRIR LA PÁGINA
-    // ==========================================
-
-    cargarResultados();
-
 
 </script>
 
