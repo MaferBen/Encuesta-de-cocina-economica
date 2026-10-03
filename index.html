@@ -910,15 +910,12 @@
 </div>
 
 
-<!-- ==========================================
-     JAVASCRIPT + FIREBASE
-========================================== -->
+    <!--JAVASCRIPT + FIREBASE-->
 
 <script type="module">
 
-    // ==========================================
+
     // CONEXIÓN CON FIREBASE
-    // ==========================================
 
     import { initializeApp }
         from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
@@ -930,9 +927,7 @@
     } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
 
-    // ==========================================
     // CONFIGURACIÓN DE FIREBASE
-    // ==========================================
 
     const firebaseConfig = {
 
@@ -958,25 +953,18 @@
     };
 
 
-    // ==========================================
     // INICIALIZAR FIREBASE
-    // ==========================================
 
     const app = initializeApp(firebaseConfig);
 
-
-    // ==========================================
     // INICIALIZAR FIRESTORE
-    // ==========================================
 
     const db = getFirestore(app);
 
     console.log("Firebase conectado correctamente");
 
 
-    // ==========================================
-    // PREGUNTA 8 - MÁXIMO 2 OPCIONES
-    // ==========================================
+    // Pregunta 8. Con máximo 2 opciones
 
     const checkboxesQ8 =
         document.querySelectorAll(".q8-cb");
@@ -1001,10 +989,7 @@
     });
 
 
-    // ==========================================
-    // ENVIAR ENCUESTA
-    // ==========================================
-
+    // Enviar encuesta
     document
         .getElementById("survey-form")
         .addEventListener("submit", async function (e) {
@@ -1012,9 +997,7 @@
             e.preventDefault();
 
 
-            // ==========================================
             // VALIDAR PREGUNTA 8
-            // ==========================================
 
             const q8Checked =
                 document.querySelectorAll(".q8-cb:checked");
@@ -1029,9 +1012,7 @@
             }
 
 
-            // ==========================================
             // OBTENER DATOS DEL FORMULARIO
-            // ==========================================
 
             const formData = new FormData(this);
 
@@ -1054,10 +1035,8 @@
                 const qTitle =
                     div.getAttribute("data-title");
 
-
-                // ==========================================
+                
                 // PREGUNTA 8
-                // ==========================================
 
                 if (qId === "q8") {
 
@@ -1081,9 +1060,7 @@
                 }
 
 
-                // ==========================================
                 // PREGUNTAS NORMALES
-                // ==========================================
 
                 else {
 
@@ -1098,9 +1075,7 @@
             });
 
 
-            // ==========================================
             // GUARDAR EN FIRESTORE
-            // ==========================================
 
             try {
 
@@ -1126,9 +1101,7 @@
                 );
 
 
-                // ==========================================
                 // LIMPIAR FORMULARIO
-                // ==========================================
 
                 document
                     .getElementById("survey-form")
