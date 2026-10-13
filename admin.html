@@ -1,1183 +1,995 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
+
 
 <head>
 
+
+
     <meta charset="UTF-8">
+
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+
     <title>Panel de Administración - Cocina Económica</title>
 
+
+
     <!-- Chart.js -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
 
 
     <style>
 
+
+
         body {
+
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
             background-color: #f4f7f6;
+
             color: #333;
+
             margin: 0;
+
             padding: 20px;
+
         }
+
+
+
 
 
         .container {
+
             max-width: 1000px;
+
             margin: 0 auto 30px auto;
+
             background: #fff;
+
             padding: 30px;
+
             border-radius: 10px;
+
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
         }
+
+
+
 
 
         h1,
+
         h2,
+
         h3 {
+
             color: #2c3e50;
+
         }
+
+
+
 
 
         .header {
+
             text-align: center;
+
             border-bottom: 2px solid #eee;
+
             padding-bottom: 20px;
+
             margin-bottom: 25px;
+
         }
+
+
+
 
 
         /* ==========================================
+
            LOGIN
+
         ========================================== */
 
+
+
         #login-section {
+
             max-width: 450px;
+
             margin: 70px auto;
+
         }
+
+
+
 
 
         .login-box {
+
             background-color: #fafafa;
+
             padding: 25px;
+
             border-radius: 8px;
+
             border: 1px solid #ddd;
+
         }
+
+
+
 
 
         .login-box label {
+
             display: block;
+
             margin-top: 15px;
+
             margin-bottom: 5px;
+
             font-weight: bold;
+
         }
+
+
+
 
 
         .login-box input {
+
             width: 100%;
+
             box-sizing: border-box;
+
             padding: 12px;
+
             border: 1px solid #ccc;
+
             border-radius: 5px;
+
             font-size: 16px;
+
         }
+
+
+
 
 
         .btn {
+
             border: none;
+
             border-radius: 5px;
+
             color: white;
+
             font-size: 16px;
+
             cursor: pointer;
+
         }
+
+
+
 
 
         .btn-login {
+
             width: 100%;
+
             padding: 13px;
+
             background-color: #27ae60;
+
             margin-top: 20px;
+
         }
+
+
+
 
 
         .btn-login:hover {
+
             background-color: #219150;
+
         }
+
+
+
 
 
         .btn-logout {
+
             background-color: #e74c3c;
+
             padding: 10px 20px;
+
         }
+
+
+
 
 
         .btn-logout:hover {
+
             background-color: #c0392b;
+
         }
+
+
+
 
 
         #error-login {
+
             color: #c0392b;
+
             margin-top: 15px;
+
             font-weight: bold;
+
             text-align: center;
+
         }
+
+
+
 
 
         /* ==========================================
+
            PANEL ADMINISTRADOR
+
         ========================================== */
 
+
+
         #admin-panel {
+
             display: none;
+
         }
+
+
+
 
 
         .admin-bar {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             background-color: #2c3e50;
+
             color: white;
+
             padding: 15px 20px;
+
             border-radius: 8px;
+
             margin-bottom: 25px;
+
         }
+
+
+
 
 
         .admin-bar span {
+
             font-size: 15px;
+
         }
+
+
+
 
 
         #total-respuestas {
+
             background-color: #eafaf1;
+
             border-left: 5px solid #27ae60;
+
             padding: 20px;
+
             font-size: 22px;
+
             font-weight: bold;
+
             margin-bottom: 30px;
+
         }
+
+
+
 
 
         /* ==========================================
+
            GRÁFICAS
+
         ========================================== */
 
+
+
         .grafica {
+
             margin-top: 30px;
+
             padding: 20px;
+
             background-color: #fafafa;
+
             border-radius: 8px;
+
             border: 1px solid #ddd;
+
         }
+
+
+
 
 
         .grafica canvas {
+
             max-height: 400px;
+
         }
+
+
+
 
 
         /* ==========================================
+
            TABLA
+
         ========================================== */
 
+
+
         .tabla-container {
+
             overflow-x: auto;
+
         }
+
+
+
 
 
         table {
+
             width: 100%;
+
             border-collapse: collapse;
+
             margin-top: 20px;
+
             font-size: 14px;
+
         }
+
+
+
 
 
         th {
+
             background-color: #2c3e50;
+
             color: white;
+
             padding: 10px;
+
             text-align: left;
+
         }
+
+
+
 
 
         td {
+
             padding: 10px;
+
             border-bottom: 1px solid #ddd;
+
             vertical-align: top;
+
         }
+
+
+
 
 
         tr:nth-child(even) {
+
             background-color: #f8f8f8;
+
         }
 
 
+
+
+
         .cargando {
+
             text-align: center;
+
             padding: 20px;
+
             font-weight: bold;
+
+        }
+
+
+
+
+        .pregunta-resultado {
+            margin-top: 28px;
+            padding: 22px;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            break-inside: avoid;
+        }
+        .pregunta-resultado h3 { margin-top: 0; }
+        .resultado-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 22px;
+            align-items: start;
+        }
+        .grafica-pregunta { min-width: 0; height: 320px; }
+        .grafica-pregunta canvas { max-height: 320px; }
+        .tabla-frecuencias { overflow-x: auto; min-width: 0; }
+        .tabla-frecuencias table { margin-top: 0; }
+        .nota-multiple { color: #555; font-size: 13px; margin: 8px 0; }
+        .sin-datos { color: #666; font-style: italic; }
+        @media (max-width: 760px) {
+            .resultado-grid { grid-template-columns: 1fr; }
+            .grafica-pregunta { height: 280px; }
+            .admin-bar { flex-wrap: wrap; gap: 12px; }
         }
 
     </style>
 
+
+
 </head>
+
+
+
 
 
 <body>
 
 
+
+
+
 <!-- ==========================================
+
      LOGIN
-========================================== -->
+
+\========================================== -->
+
+
 
 <div class="container" id="login-section">
 
+
+
     <div class="header">
+
+
 
         <h1>Panel de Administración</h1>
 
+
+
         <p>Cocina Económica</p>
 
+
+
     </div>
+
+
+
 
 
     <div class="login-box">
 
+
+
         <h2>Iniciar sesión</h2>
 
 
+
+
+
         <label for="email">
+
             Correo electrónico
+
         </label>
 
+
+
         <input
+
             type="email"
+
             id="email"
+
             placeholder="Correo del administrador"
+
         >
+
+
+
 
 
         <label for="password">
+
             Contraseña
+
         </label>
 
+
+
         <input
+
             type="password"
+
             id="password"
+
             placeholder="Contraseña"
+
         >
+
+
+
 
 
         <button
+
             class="btn btn-login"
+
             id="btn-login"
+
         >
+
             Iniciar sesión
+
         </button>
+
+
+
 
 
         <div id="error-login"></div>
 
+
+
     </div>
+
+
 
 </div>
 
 
 
+
+
+
+
 <!-- ==========================================
+
      PANEL DE ADMINISTRADOR
-========================================== -->
+
+\========================================== -->
+
+
 
 <div class="container" id="admin-panel">
 
 
+
+
+
     <div class="admin-bar">
+
+
 
         <span>
 
+
+
             Administrador:
 
+
+
             <strong id="admin-email"></strong>
+
+
 
         </span>
 
 
+
+
+
         <button
+
             class="btn btn-logout"
+
             id="btn-logout"
+
         >
+
             Cerrar sesión
+
         </button>
 
+
+
     </div>
+
+
+
+
 
 
 
     <div class="header">
 
+
+
         <h1>Resultados de la Encuesta</h1>
 
+
+
         <p>
+
             Estadísticas de las respuestas registradas.
+
         </p>
+
+
 
     </div>
 
 
 
+
+
+
+
     <!-- ==========================================
+
          TOTAL DE RESPUESTAS
+
     ========================================== -->
+
+
 
     <div id="total-respuestas">
 
+
+
         Total de respuestas: 0
 
+
+
     </div>
 
 
 
-    <!-- ==========================================
-         GRÁFICA 1
-    ========================================== -->
 
+
+
+
+    <!-- Las 19 gráficas y sus tablas de frecuencia se generan desde JavaScript -->
     <div class="grafica">
-
-        <h3>
-            1. Rango de edad
-        </h3>
-
-        <canvas id="graficaEdad"></canvas>
-
+        <h2>Gráficas y tablas de frecuencia por pregunta</h2>
+        <p>Se muestran los resultados de cada una de las 19 preguntas. La pregunta 8 permite elegir hasta dos opciones.</p>
     </div>
-
+    <div id="graficas-frecuencias"></div>
 
 
     <!-- ==========================================
-         GRÁFICA 2
-    ========================================== -->
 
-    <div class="grafica">
-
-        <h3>
-            2. Ocupación
-        </h3>
-
-        <canvas id="graficaOcupacion"></canvas>
-
-    </div>
-
-
-
-    <!-- ==========================================
-         GRÁFICA 3
-    ========================================== -->
-
-    <div class="grafica">
-
-        <h3>
-            3. Frecuencia de consumo
-        </h3>
-
-        <canvas id="graficaFrecuencia"></canvas>
-
-    </div>
-
-
-
-    <!-- ==========================================
-         GRÁFICA 4
-    ========================================== -->
-
-    <div class="grafica">
-
-        <h3>
-            4. Precio dispuesto a pagar
-        </h3>
-
-        <canvas id="graficaPrecio"></canvas>
-
-    </div>
-
-
-
-    <!-- ==========================================
-         GRÁFICA 5
-    ========================================== -->
-
-    <div class="grafica">
-
-        <h3>
-            5. Modalidad de servicio
-        </h3>
-
-        <canvas id="graficaModalidad"></canvas>
-
-    </div>
-
-
-
-    <!-- ==========================================
-         GRÁFICA 6
-    ========================================== -->
-
-    <div class="grafica">
-
-        <h3>
-            6. Método de pago
-        </h3>
-
-        <canvas id="graficaPago"></canvas>
-
-    </div>
-
-
-
-    <!-- ==========================================
          TABLA DE RESPUESTAS
+
     ========================================== -->
 
+
+
     <div class="grafica">
+
+
 
         <h2>
+
             Respuestas registradas
+
         </h2>
 
 
+
+
+
         <div
+
             id="tabla-respuestas"
+
             class="tabla-container"
+
         >
 
+
+
             <div class="cargando">
+
                 Cargando respuestas...
+
             </div>
+
+
 
         </div>
 
+
+
     </div>
+
+
 
 </div>
 
 
 
+
+
+
+
 <!-- ==========================================
+
      FIREBASE + JAVASCRIPT
-========================================== -->
+
+\========================================== -->
+
+
 
 <script type="module">
-
-
-    // ==========================================
-    // FIREBASE APP
-    // ==========================================
-
-    import {
-        initializeApp
-    }
-    from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-
-
-
-    // ==========================================
-    // FIREBASE AUTHENTICATION
-    // ==========================================
-
-    import {
-        getAuth,
-        signInWithEmailAndPassword,
-        onAuthStateChanged,
-        signOut
-    }
-    from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-
-
-
-    // ==========================================
-    // FIRESTORE
-    // ==========================================
-
-    import {
-        getFirestore,
-        collection,
-        getDocs
-    }
-    from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
-
-
-
-    // ==========================================
-    // CONFIGURACIÓN DE FIREBASE
-    // ==========================================
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
     const firebaseConfig = {
-
         apiKey: "AIzaSyByFd9XxZCEDxRtPkcK5D-R2bBPBJ_QzFI",
-
-        authDomain:
-            "encuesta-cocina-economica.firebaseapp.com",
-
-        projectId:
-            "encuesta-cocina-economica",
-
-        storageBucket:
-            "encuesta-cocina-economica.firebasestorage.app",
-
-        messagingSenderId:
-            "79485744933",
-
-        appId:
-            "1:79485744933:web:734007b926d65ed2d64ccc",
-
-        measurementId:
-            "G-VVR90J5WEG"
-
+        authDomain: "encuesta-cocina-economica.firebaseapp.com",
+        projectId: "encuesta-cocina-economica",
+        storageBucket: "encuesta-cocina-economica.firebasestorage.app",
+        messagingSenderId: "79485744933",
+        appId: "1:79485744933:web:734007b926d65ed2d64ccc",
+        measurementId: "G-VVR90J5WEG"
     };
 
-
-
-    // ==========================================
-    // INICIALIZAR FIREBASE
-    // ==========================================
-
-    const app =
-        initializeApp(firebaseConfig);
-
-
-
-    // ==========================================
-    // INICIALIZAR AUTH
-    // ==========================================
-
-    const auth =
-        getAuth(app);
-
-
-
-    // ==========================================
-    // INICIALIZAR FIRESTORE
-    // ==========================================
-
-    const db =
-        getFirestore(app);
-
-
-
-    console.log(
-        "Firebase conectado correctamente"
-    );
-
-
-
-    // ==========================================
-    // VARIABLES
-    // ==========================================
-
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
     let datosRespuestas = [];
+    const graficasCreadas = new Map();
 
+    // Títulos originales de las 19 preguntas del formulario.
+    const preguntas = [{"id": "q1", "title": "1. ¿Cuál es su rango de edad?"}, {"id": "q2", "title": "2. ¿Cuál es su ocupación principal?"}, {"id": "q3", "title": "3. ¿En qué colonia o zona de Felipe Carrillo Puerto vive o trabaja habitualmente?"}, {"id": "q4", "title": "4. ¿Dónde acostumbra realizar su comida principal entre semana?"}, {"id": "q5", "title": "5. ¿Con qué frecuencia consume alimentos en cocinas económicas?"}, {"id": "q6", "title": "6. ¿En qué horario acostumbra realizar su comida principal?"}, {"id": "q7", "title": "7. Motivo principal por el que compra comida en un establecimiento"}, {"id": "q8", "title": "8. Factor que valora más (Máx. 2)"}, {"id": "q9", "title": "9. ¿Qué presentación de comida casera le resulta más atractiva?"}, {"id": "q10", "title": "10. Interés en plan de suscripción"}, {"id": "q11", "title": "11. ¿Qué modalidad utiliza con mayor frecuencia?"}, {"id": "q12", "title": "12. ¿Visitaría el establecimiento para comer ahí mismo?"}, {"id": "q13", "title": "13. Tiempo máximo aceptable de espera a domicilio"}, {"id": "q14", "title": "14. Canal preferido para menú y pedidos"}, {"id": "q15", "title": "15. Menú del día por WhatsApp"}, {"id": "q16", "title": "16. Opinión sobre empaques biodegradables"}, {"id": "q17", "title": "17. ¿Cuánto suele/considera justo pagar por una comida completa?"}, {"id": "q18", "title": "18. Disposición a pagar cuota de envío"}, {"id": "q19", "title": "19. Método de pago preferido"}];
 
+    const loginSection = document.getElementById("login-section");
+    const adminPanel = document.getElementById("admin-panel");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const errorLogin = document.getElementById("error-login");
+    const adminEmail = document.getElementById("admin-email");
 
-    // ==========================================
-    // ELEMENTOS DEL LOGIN
-    // ==========================================
-
-    const loginSection =
-        document.getElementById(
-            "login-section"
-        );
-
-
-    const adminPanel =
-        document.getElementById(
-            "admin-panel"
-        );
-
-
-    const emailInput =
-        document.getElementById(
-            "email"
-        );
-
-
-    const passwordInput =
-        document.getElementById(
-            "password"
-        );
-
-
-    const errorLogin =
-        document.getElementById(
-            "error-login"
-        );
-
-
-    const adminEmail =
-        document.getElementById(
-            "admin-email"
-        );
-
-
-
-    // ==========================================
-    // INICIAR SESIÓN
-    // ==========================================
-
-    document
-        .getElementById("btn-login")
-        .addEventListener(
-            "click",
-            async () => {
-
-                const email =
-                    emailInput.value.trim();
-
-
-                const password =
-                    passwordInput.value;
-
-
-                if (!email || !password) {
-
-                    errorLogin.textContent =
-                        "Escribe tu correo y contraseña.";
-
-                    return;
-                }
-
-
-                errorLogin.textContent =
-                    "Iniciando sesión...";
-
-
-                try {
-
-                    await signInWithEmailAndPassword(
-                        auth,
-                        email,
-                        password
-                    );
-
-                }
-
-                catch (error) {
-
-                    console.error(error);
-
-                    errorLogin.textContent =
-                        "Correo o contraseña incorrectos.";
-
-                }
-
-            }
-        );
-
-
-
-    // ==========================================
-    // CERRAR SESIÓN
-    // ==========================================
-
-    document
-        .getElementById("btn-logout")
-        .addEventListener(
-            "click",
-            async () => {
-
-                await signOut(auth);
-
-            }
-        );
-
-
-
-    // ==========================================
-    // COMPROBAR AUTENTICACIÓN
-    // ==========================================
-
-    onAuthStateChanged(
-        auth,
-        async (user) => {
-
-            if (user) {
-
-                console.log(
-                    "Usuario autenticado:",
-                    user.email
-                );
-
-
-                loginSection.style.display =
-                    "none";
-
-
-                adminPanel.style.display =
-                    "block";
-
-
-                adminEmail.textContent =
-                    user.email;
-
-
-                await cargarResultados();
-
-            }
-
-            else {
-
-                loginSection.style.display =
-                    "block";
-
-
-                adminPanel.style.display =
-                    "none";
-
-            }
-
+    document.getElementById("btn-login").addEventListener("click", async () => {
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        if (!email || !password) {
+            errorLogin.textContent = "Escribe tu correo y contraseña.";
+            return;
         }
-    );
+        errorLogin.textContent = "Iniciando sesión...";
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            errorLogin.textContent = "";
+        } catch (error) {
+            console.error("Error de inicio de sesión:", error);
+            errorLogin.textContent = "Correo o contraseña incorrectos.";
+        }
+    });
 
+    document.getElementById("btn-logout").addEventListener("click", async () => {
+        try { await signOut(auth); }
+        catch (error) { console.error("Error al cerrar sesión:", error); }
+    });
 
-
-    // ==========================================
-    // CARGAR RESULTADOS
-    // ==========================================
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            loginSection.style.display = "none";
+            adminPanel.style.display = "block";
+            adminEmail.textContent = user.email || "Administrador";
+            await cargarResultados();
+        } else {
+            loginSection.style.display = "block";
+            adminPanel.style.display = "none";
+        }
+    });
 
     async function cargarResultados() {
-
+        const host = document.getElementById("graficas-frecuencias");
         try {
+            const consulta = await getDocs(collection(db, "encuestas"));
+            datosRespuestas = consulta.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            document.getElementById("total-respuestas").textContent =
+                `Total de respuestas: ${datosRespuestas.length}`;
 
-            const consulta =
-                await getDocs(
-                    collection(
-                        db,
-                        "encuestas"
-                    )
-                );
+            // Crea una gráfica y una tabla de frecuencias por cada pregunta q1...q19.
+            host.innerHTML = "";
+            preguntas.forEach((pregunta) => {
+                const card = document.createElement("section");
+                card.className = "pregunta-resultado";
+                card.innerHTML = `
+                    <h3>${escapeHTML(pregunta.id.slice(1))}. ${escapeHTML(pregunta.title.replace(/^\d+\.\s*/, ""))}</h3>
+                    <div class="resultado-grid">
+                        <div class="grafica-pregunta"><canvas id="grafica-${pregunta.id}" aria-label="Gráfica de ${escapeHTML(pregunta.title)}"></canvas></div>
+                        <div class="tabla-frecuencias" id="tabla-${pregunta.id}"></div>
+                    </div>
+                `;
+                host.appendChild(card);
+                const resultado = contar(pregunta.id);
+                crearGrafica(`grafica-${pregunta.id}`, resultado.conteo, pregunta.title);
+                crearTablaFrecuencias(`tabla-${pregunta.id}`, resultado, pregunta.id === "q8");
+            });
 
-
-            let respuestas = [];
-
-
-            consulta.forEach(
-                (doc) => {
-
-                    respuestas.push({
-
-                        id: doc.id,
-
-                        ...doc.data()
-
-                    });
-
-                }
-            );
-
-
-            // Guardar los datos
-            // para las gráficas
-
-            datosRespuestas =
-                respuestas;
-
-
-
-            // ==========================================
-            // TOTAL
-            // ==========================================
-
-            document
-                .getElementById(
-                    "total-respuestas"
-                )
-                .textContent =
-                "Total de respuestas: " +
-                respuestas.length;
-
-
-
-            // ==========================================
-            // CREAR GRÁFICAS
-            // ==========================================
-
-            crearGrafica(
-                "graficaEdad",
-                contar("q1")
-            );
-
-
-            crearGrafica(
-                "graficaOcupacion",
-                contar("q2")
-            );
-
-
-            crearGrafica(
-                "graficaFrecuencia",
-                contar("q5")
-            );
-
-
-            crearGrafica(
-                "graficaPrecio",
-                contar("q17")
-            );
-
-
-            crearGrafica(
-                "graficaModalidad",
-                contar("q11")
-            );
-
-
-            crearGrafica(
-                "graficaPago",
-                contar("q19")
-            );
-
-
-
-            // ==========================================
-            // CREAR TABLA
-            // ==========================================
-
-            crearTabla(
-                respuestas
-            );
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Error al cargar resultados:",
-                error
-            );
-
-
-            document
-                .getElementById(
-                    "tabla-respuestas"
-                )
-                .innerHTML =
+            // Se conserva la tabla general con cada respuesta individual.
+            crearTablaGeneral(datosRespuestas);
+        } catch (error) {
+            console.error("Error al cargar resultados:", error);
+            host.innerHTML = "<p class='sin-datos'>No fue posible cargar las gráficas y tablas. Revisa la conexión con Firebase.</p>";
+            document.getElementById("tabla-respuestas").innerHTML =
                 "<p>No fue posible cargar las respuestas.</p>";
-
         }
-
     }
 
+    function contar(qId) {
+        const conteo = new Map();
+        let respondieron = 0;
+        datosRespuestas.forEach((registro) => {
+            const bloque = registro[qId];
+            const valores = Array.isArray(bloque?.answers)
+                ? bloque.answers
+                : (bloque?.answers == null ? [] : [bloque.answers]);
+            const validos = valores.map(v => String(v ?? "").trim()).filter(Boolean);
+            if (validos.length) respondieron++;
+            validos.forEach(valor => conteo.set(valor, (conteo.get(valor) || 0) + 1));
+        });
+        return { conteo: Object.fromEntries(conteo), respondieron };
+    }
 
-
-    // ==========================================
-    // CONTAR RESPUESTAS
-    // ==========================================
-
-    function contar(pregunta) {
-
-        let conteo = {};
-
-
-        datosRespuestas.forEach(
-            (respuesta) => {
-
-                if (
-                    respuesta[pregunta] &&
-                    respuesta[pregunta].answers
-                ) {
-
-                    respuesta[pregunta]
-                        .answers
-                        .forEach(
-                            (valor) => {
-
-                                if (valor) {
-
-                                    conteo[valor] =
-                                        (
-                                            conteo[valor] ||
-                                            0
-                                        ) + 1;
-
-                                }
-
-                            }
-                        );
-
+    function crearGrafica(canvasId, datos, titulo) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        if (graficasCreadas.has(canvasId)) graficasCreadas.get(canvasId).destroy();
+        const labels = Object.keys(datos);
+        const values = Object.values(datos);
+        const sinDatos = labels.length === 0;
+        graficasCreadas.set(canvasId, new Chart(canvas, {
+            type: "bar",
+            data: {
+                labels: sinDatos ? ["Sin respuestas"] : labels,
+                datasets: [{
+                    label: "Número de respuestas",
+                    data: sinDatos ? [0] : values,
+                    backgroundColor: "rgba(39, 174, 96, 0.72)",
+                    borderColor: "#219150",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, title: { display: false, text: titulo } },
+                scales: {
+                    y: { beginAtZero: true, ticks: { precision: 0, stepSize: 1 } },
+                    x: { ticks: { autoSkip: false, maxRotation: 55, minRotation: 0 } }
                 }
-
             }
-        );
-
-
-        return conteo;
-
+        }));
     }
 
-
-
-    // ==========================================
-    // CREAR GRÁFICA
-    // ==========================================
-
-    function crearGrafica(
-        id,
-        datos
-    ) {
-
-        const canvas =
-            document.getElementById(
-                id
-            );
-
-
-        const graficaExistente =
-            Chart.getChart(
-                canvas
-            );
-
-
-        if (graficaExistente) {
-
-            graficaExistente.destroy();
-
-        }
-
-
-        new Chart(
-            canvas,
-            {
-
-                type: "bar",
-
-                data: {
-
-                    labels:
-                        Object.keys(datos),
-
-                    datasets: [
-
-                        {
-
-                            label:
-                                "Número de respuestas",
-
-                            data:
-                                Object.values(datos)
-
-                        }
-
-                    ]
-
-                },
-
-
-                options: {
-
-                    responsive: true,
-
-                    scales: {
-
-                        y: {
-
-                            beginAtZero: true,
-
-                            ticks: {
-
-                                stepSize: 1
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-        );
-
-    }
-
-
-
-    // ==========================================
-    // CREAR TABLA
-    // ==========================================
-
-    function crearTabla(
-        respuestas
-    ) {
-
-        const contenedor =
-            document.getElementById(
-                "tabla-respuestas"
-            );
-
-
-        if (
-            respuestas.length === 0
-        ) {
-
-            contenedor.innerHTML =
-                "<p>No hay respuestas registradas todavía.</p>";
-
+    function crearTablaFrecuencias(contenedorId, resultado, esMultiple) {
+        const contenedor = document.getElementById(contenedorId);
+        const filas = Object.entries(resultado.conteo).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "es"));
+        const total = resultado.respondieron;
+        if (!filas.length) {
+            contenedor.innerHTML = "<p class='sin-datos'>Todavía no hay respuestas para esta pregunta.</p>";
             return;
-
         }
-
-
-        let html = `
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>#</th>
-
-                        <th>Fecha</th>
-
-                        <th>Pregunta</th>
-
-                        <th>Respuesta</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-        `;
-
-
-        respuestas.forEach(
-            (respuesta, indice) => {
-
-                let fecha = "";
-
-
-                if (
-                    respuesta.fecha
-                ) {
-
-                    if (
-                        respuesta.fecha.toDate
-                    ) {
-
-                        fecha =
-                            respuesta.fecha
-                                .toDate()
-                                .toLocaleString(
-                                    "es-MX"
-                                );
-
-                    }
-
-                    else {
-
-                        fecha =
-                            new Date(
-                                respuesta.fecha
-                            )
-                            .toLocaleString(
-                                "es-MX"
-                            );
-
-                    }
-
-                }
-
-
-                Object.keys(
-                    respuesta
-                )
-                .forEach(
-                    (qId) => {
-
-                        if (
-                            qId === "id" ||
-                            qId === "fecha"
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        const pregunta =
-                            respuesta[qId];
-
-
-                        if (
-                            !pregunta ||
-                            !pregunta.title
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        const respuestasTexto =
-                            pregunta.answers
-                                ? pregunta.answers.join(", ")
-                                : "";
-
-
-                        html += `
-
-                            <tr>
-
-                                <td>
-                                    ${indice + 1}
-                                </td>
-
-                                <td>
-                                    ${fecha}
-                                </td>
-
-                                <td>
-                                    ${pregunta.title}
-                                </td>
-
-                                <td>
-                                    ${respuestasTexto}
-                                </td>
-
-                            </tr>
-
-                        `;
-
-                    }
-                );
-
-            }
-        );
-
-
-        html += `
-
-                </tbody>
-
-            </table>
-
-        `;
-
-
-        contenedor.innerHTML =
-            html;
-
+        let html = `<table><thead><tr><th>Respuesta</th><th>Frecuencia</th><th>Porcentaje</th></tr></thead><tbody>`;
+        filas.forEach(([respuesta, frecuencia]) => {
+            const porcentaje = total ? (frecuencia / total * 100) : 0;
+            html += `<tr><td>${escapeHTML(respuesta)}</td><td>${frecuencia}</td><td>${porcentaje.toLocaleString("es-MX", { maximumFractionDigits: 1 })}%</td></tr>`;
+        });
+        html += `<tr><th>Total de personas que respondieron</th><th>${total}</th><th>100%</th></tr></tbody></table>`;
+        if (esMultiple) html += `<p class="nota-multiple">Pregunta de selección múltiple: el porcentaje se calcula sobre las personas que respondieron; por eso la suma puede superar el 100%.</p>`;
+        contenedor.innerHTML = html;
     }
 
+    function crearTablaGeneral(respuestas) {
+        const contenedor = document.getElementById("tabla-respuestas");
+        if (!respuestas.length) {
+            contenedor.innerHTML = "<p>No hay respuestas registradas todavía.</p>";
+            return;
+        }
+        let html = `<table><thead><tr><th>#</th><th>Fecha</th><th>Pregunta</th><th>Respuesta</th></tr></thead><tbody>`;
+        respuestas.forEach((registro, indice) => {
+            const fecha = convertirFecha(registro.fecha);
+            preguntas.forEach(({ id, title }) => {
+                const bloque = registro[id];
+                if (!bloque) return;
+                const valores = Array.isArray(bloque.answers) ? bloque.answers : (bloque.answers == null ? [] : [bloque.answers]);
+                html += `<tr><td>${indice + 1}</td><td>${escapeHTML(fecha)}</td><td>${escapeHTML(bloque.title || title)}</td><td>${escapeHTML(valores.filter(v => v != null && v !== "").join(", ") || "Sin respuesta")}</td></tr>`;
+            });
+        });
+        html += `</tbody></table>`;
+        contenedor.innerHTML = html;
+    }
 
+    function convertirFecha(fecha) {
+        if (!fecha) return "";
+        const date = typeof fecha.toDate === "function" ? fecha.toDate() : new Date(fecha);
+        return Number.isNaN(date.getTime()) ? "" : date.toLocaleString("es-MX");
+    }
+
+    function escapeHTML(valor) {
+        return String(valor ?? "").replace(/[&<>"']/g, caracter => ({
+            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+        })[caracter]);
+    }
 </script>
 
 
+
+
+
 </body>
+
+
 
 </html>
