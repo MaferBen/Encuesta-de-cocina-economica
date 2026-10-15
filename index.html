@@ -99,6 +99,56 @@
             background-color: #219150;
         }
 
+        /* Diseño del selector de colonias */
+        #q3 {
+            width: 100%;
+            padding: 14px 16px;
+            margin: 10px 0 18px;
+            font-size: 15px;
+            font-family: inherit;
+            color: #333;
+            background-color: #f8f9fc;
+            border: 2px solid #d9deea;
+            border-radius: 12px;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235b67a5' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 45px;
+
+            transition: border-color 0.25s, box-shadow 0.25s,
+                        background-color 0.25s;
+        }
+
+        /* Efecto al pasar el cursor */
+        #q3:hover {
+            border-color: #8792c7;
+            background-color: #ffffff;
+        }
+
+        /* Efecto al seleccionar */
+        #q3:focus {
+            border-color: #5b67a5;
+            box-shadow: 0 0 0 4px rgba(91, 103, 165, 0.15);
+            background-color: #ffffff;
+        }
+
+        /* Color del texto inicial */
+        #q3:invalid {
+            color: #777f91;
+        }
+
+        /* Opciones de la lista */
+        #q3 option {
+            color: #333;
+            background-color: #ffffff;
+            padding: 10px;
+        }
+
     </style>
 
 </head>
@@ -233,111 +283,35 @@
                  data-title="3. ¿En qué colonia o zona de Felipe Carrillo Puerto vive o trabaja habitualmente?">
 
                 <p>
-                    3. ¿En qué colonia o zona de Felipe Carrillo Puerto
-                    vive o trabaja habitualmente?
-                </p>
+    3. ¿En qué colonia o zona de Felipe Carrillo Puerto
+    vive o trabaja habitualmente?
+</p>
 
-                <label>
-                    <input type="radio" name="q3"
-                           value="Centro" required>
-                    Colonia Centro
-                </label>
+    <label for="q3">Selecciona tu colonia o zona:</label>
 
-                <label>
-                    <input type="radio" name="q3"
-                           value="Cecilio Chi">
-                    Cecilio Chi
-                </label>
+    <select name="q3" id="q3" required>
+        <option value="" disabled selected>
+            Selecciona una colonia o zona
+        </option>
 
-                <label>
-                    <input type="radio" name="q3"
-                           value="Lázaro Cárdenas">
-                    Lázaro Cárdenas
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Emiliano Zapata 1">
-                    Emiliano Zapata 1
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Emiliano Zapata 2">
-                    Emiliano Zapata 2
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Leona Vicario">
-                    Leona Vicario
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Francisco May">
-                    Francisco May
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Jesús Martínez Ross">
-                    Jesús Martínez Ross
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Javier Rojo Gómez">
-                    Javier Rojo Gómez
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Rafael E. Melgar">
-                    Rafael E. Melgar
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Plan de Ayala">
-                    Plan de Ayala
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Constituyentes">
-                    Constituyentes
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Infonavit">
-                    Infonavit
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Juan Bautista Vega">
-                    Juan Bautista Vega
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Villas del Bosque">
-                    Villas del Bosque
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Villas del Sol">
-                    Villas del Sol
-                </label>
-
-                <label>
-                    <input type="radio" name="q3"
-                           value="Vivah">
-                    Vivah
-                </label>
+        <option value="Centro">Colonia Centro</option>
+        <option value="Cecilio Chi">Cecilio Chi</option>
+        <option value="Lázaro Cárdenas">Lázaro Cárdenas</option>
+        <option value="Emiliano Zapata 1">Emiliano Zapata 1</option>
+        <option value="Emiliano Zapata 2">Emiliano Zapata 2</option>
+        <option value="Leona Vicario">Leona Vicario</option>
+        <option value="Francisco May">Francisco May</option>
+        <option value="Jesús Martínez Ross">Jesús Martínez Ross</option>
+        <option value="Javier Rojo Gómez">Javier Rojo Gómez</option>
+        <option value="Rafael E. Melgar">Rafael E. Melgar</option>
+        <option value="Plan de Ayala">Plan de Ayala</option>
+        <option value="Constituyentes">Constituyentes</option>
+        <option value="Infonavit">Infonavit</option>
+        <option value="Juan Bautista Vega">Juan Bautista Vega</option>
+        <option value="Villas del Bosque">Villas del Bosque</option>
+        <option value="Villas del Sol">Villas del Sol</option>
+        <option value="Vivah">Vivah</option>
+    </select>
 
             </div>
 
